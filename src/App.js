@@ -5,7 +5,7 @@ import HomePage from './pages/homepage/homepage.component';
 import shopPage from './pages/shop/shop.component';
 import Header from './components/header/header.component';
 import SignInAndSignUpPage from './pages/sign-in-and-out/sign-in-and-out.component';
-import {auth} from './firebase/firebase.utils';
+import {auth, createUserProfileDocument} from './firebase/firebase.utils';
 
 
 const HatsPage = () =>(
@@ -29,10 +29,27 @@ class App extends React.Component{
 
   //open subscription, start the cycle
   componentDidMount(){
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(user =>{
-      this.setState({currentUser: user});
-      console.log(user)
-    })
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth =>{
+      // check if the user is signning in
+    if(userAuth){
+      // get the user ref from the firestore database website
+      const userRef=await createUserProfileDocument(userAuth);
+      // listen for any changes in the data while logged in
+      userRef.onSnapshot(snapshot=>{
+        this.setState({
+          currentUser:{
+            id: snapshot.id,
+            ...snapshot.data()
+          }
+        });
+        console.log(this.state);
+      })
+    }
+    // if the user signs out, set the state to null
+    else{
+    this.setState({currentUser: userAuth});
+    }
+    });
   }
 
   //end the cycle, close the subscription 
