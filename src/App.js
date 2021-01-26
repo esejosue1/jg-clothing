@@ -42,7 +42,6 @@ class App extends React.Component{
             ...snapshot.data()
           }
         });
-        console.log(this.state);
       })
     }
     // if the user signs out, set the state to null
