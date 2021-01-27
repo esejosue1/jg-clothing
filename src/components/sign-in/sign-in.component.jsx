@@ -1,4 +1,5 @@
 //component for signing in the user
+
 import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-botton/custom-botton.components';
@@ -39,7 +40,7 @@ class SignIn extends React.Component{
         return(
             <div className='sign-in'>
                 <h2>I already have an account</h2>
-                <span>Sign in with your email password</span>
+                <span>Sign in with your email and password</span>
                 <form onSubmit={this.handleSubmit}>
                     
                     <FormInput

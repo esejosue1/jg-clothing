@@ -1,5 +1,6 @@
-import React from 'react';
+//shop page component
 
+import React from 'react';
 import shopData from './shop.data.js';
 import CollectionPreview from '../../components/preview-collection.component/collection-preview.jsx';
 

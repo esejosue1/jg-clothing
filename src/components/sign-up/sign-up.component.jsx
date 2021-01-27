@@ -1,5 +1,6 @@
-import React from 'react';
+//component for sign out 
 
+import React from 'react';
 import FormInput from '../form-input/form-input.component';
 import CustomButton from '../custom-botton/custom-botton.components';
 import {auth, createUserProfileDocument} from '../../firebase/firebase.utils';
@@ -54,7 +55,7 @@ class SignUp extends React.Component{
         // create the sign up form for new users who want to sign up
         return(
             <div className='sign-up'>
-                <h2 className='title'>I do not have an account</h2>
+                <h2 className='title'>join the crew, create an account</h2>
                 <span>Sign up with your email and password</span>
                 <form className='sign-up-form' onSubmit={this.handleSubmit}>
                     <FormInput 
