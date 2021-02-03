@@ -3,7 +3,10 @@ import {Link} from 'react-router-dom';
 //modify our component to have related component to redux
 import {connect} from 'react-redux';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
+import { createStructuredSelector } from "reselect";
 import CartIcon from '../cart-icon/cart-icon.component';
+import {selectCartHidden} from '../../redux/cart/cart.selectors';
+import {selectCurrentUser} from '../../redux/user/user.selector';
 import {auth} from '../../firebase/firebase.utils';
 import {ReactComponent as Logo} from '../../assets/crown.svg';
 import './header.styles.scss';
@@ -36,10 +39,10 @@ const Header = ({currentUser, hidden}) =>(
 )
 
 // obtaining the high order state, which is the user=null to begin with
-const mapStateToProps = ({user:{currentUser}, cart:{hidden}  })=>({
+const mapStateToProps = createStructuredSelector({
     // distructor nested values, want to get me currentUser from user which is being distructor from the state
-    currentUser,
-    hidden
+    currentUser: selectCurrentUser,
+    hidden: selectCartHidden
 })
 
 // high order component which gets the first function on top
