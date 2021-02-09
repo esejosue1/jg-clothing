@@ -1,6 +1,6 @@
+//preview the pictures of the items, in this case 4 items
 import React from 'react';
-
-import CollectionItem from '../collection-item/collection-item.component.jsx';
+import CollectionItem from '../collection-item/collection-item.component';
 import './collection-preview.styles.scss';
 
 const collectionPreview = ({title, items}) =>(
