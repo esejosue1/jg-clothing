@@ -4,7 +4,13 @@ import {persistStore} from 'redux-persist';
 import logger from 'redux-logger';
 import rootReducer from './root.reducer';
 
-const middlewares=[logger];
+//logs tthe actions deployed, but use the if so see the logs for only devs
+// const middlewares=[logger]; to log no matter who sees it
+const middlewares=[]
+
+if (process.env.NODE_ENV === 'development'){
+    middlewares.push(logger)
+}
 
 export const store=createStore(rootReducer, applyMiddleware(...middlewares))
 // creating persisting versiono of store
