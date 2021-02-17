@@ -12,14 +12,6 @@ import CheckoutPage from './pages/checkout/checkout.component';
 import {setCurrentUser} from './redux/user/user.actions';
 import {selectCurrentUser} from './redux/user/user.selector';
 
-
-// const HatsPage = () =>(
-//   <div>
-//     <h1>HATS PAGE</h1>
-//   </div>
-// );
-
-
 class App extends React.Component{
 
 
@@ -45,6 +37,8 @@ class App extends React.Component{
     // if the user signs out, set the state to null
     else{
     setCurrentUser(userAuth);
+    //values
+    //addCollectionAndDocument('collections', collectionsArray.map(({title,items}) =>({title, items})));
     }
     });
   }
@@ -75,8 +69,7 @@ class App extends React.Component{
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
-})
+  currentUser: selectCurrentUser})
 
 const mapDispatchToProps = dispatch =>({
   setCurrentUser:user => dispatch(setCurrentUser(user))

@@ -13,6 +13,8 @@ const config ={
     measurementId: "G-9W03YTLB2E"
   }
 
+  firebase.initializeApp(config);
+
   export const createUserProfileDocument = async (userAuth, additionalData)=>
   {
     if (!userAuth) return;
@@ -39,7 +41,39 @@ const config ={
     return userRef;
   };
 
-  firebase.initializeApp(config);
+  export const addCollectionAndDocument = async (collectionKey, objectsToAdd) =>{
+    const collectionRef = firestore.collection(collectionKey);
+
+  //fire one big set since firabase only allows to shot a set one at a time
+  const batch = firestore.batch();
+  objectsToAdd.forEach((obj) =>{    //call the func instead of new array
+    const newDocRef = collectionRef.doc();  //doc at empry string, new doc reference and id
+    batch.set(newDocRef, obj);
+  });
+
+  return await batch.commit()
+  }
+
+  //convert the data into an array of objects instead of array
+  export const convertCollectionsSnapchotToMap =(collections)=>{
+    const transformedCollection = collections.docs.map(doc =>{
+      const {title, items} = doc.data();
+      //final shape of the object we want
+      return {
+        //pass some string that the url cant hanle such as symbols
+        routeName:encodeURI(title.toLowerCase()),
+        id: doc.id,
+        title,
+        items
+      };
+    });
+    console.log(transformedCollection)
+    //pass in the initial object, empty oject property with hats in lowercase =  hats.collection
+    return transformedCollection.reduce((accumulator, collection) =>{
+      accumulator[collection.title.toLowerCase()] = collection;
+      return accumulator;
+    }, {});
+  };
 
 //   firebase authentication access
   export const auth = firebase.auth();
