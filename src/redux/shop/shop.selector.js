@@ -28,3 +28,15 @@ createSelector(
     collections[collectionUrlParam]
     : null)
 );
+
+//create selector call, want shop object, return shop fetching
+export const selectIsCollectionFetching = createSelector(
+    [selectShop],
+    shop =>shop.isFetching
+);
+
+//check is the collection is already loaded, turning null into a boolean
+export const selectIsCollectionLoaded = createSelector(
+    [selectShop],
+    shop => !!shop.collections //if our collection is loaded, return true
+);
