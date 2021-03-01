@@ -75,6 +75,16 @@ const config ={
     }, {});
   };
 
+  //return the user auth promise to verify the users authentication session
+  export const getCurrentUser = () =>{
+    return new Promise((resolve, reject) => {
+      const unsubscribe = auth.onAuthStateChanged(userAuth =>{
+        unsubscribe();
+        resolve(userAuth);
+      }, reject)
+    })
+  }
+
 //   firebase authentication access
   export const auth = firebase.auth();
 //  firebase store
